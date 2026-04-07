@@ -53,6 +53,7 @@
       align-items: center;
       justify-content: center;
       font-size: 14px;
+      text-align: center;
     }
 
     .cell:hover {
@@ -63,6 +64,13 @@
       background: #22c55e !important;
       color: #022c22;
       font-weight: bold;
+    }
+
+    .free {
+      background: #f59e0b;
+      color: #1f2937;
+      font-weight: bold;
+      cursor: default;
     }
 
     button {
@@ -144,21 +152,32 @@
 
     function generateCard(seed) {
       const rand = seededRandom(seed);
-      const shuffled = shuffle(phrases, rand).slice(0, 25);
+
+      // Only need 24 items now (center is fixed)
+      const shuffled = shuffle(phrases, rand).slice(0, 24);
 
       cardElement.innerHTML = "";
 
-      shuffled.forEach(text => {
+      let index = 0;
+
+      for (let i = 0; i < 25; i++) {
         const cell = document.createElement("div");
         cell.className = "cell";
-        cell.textContent = text;
 
-        cell.addEventListener("click", () => {
-          cell.classList.toggle("checked");
-        });
+        // Center position (index 12)
+        if (i === 12) {
+          cell.textContent = "Find a 7K. (FREE)";
+          cell.classList.add("free", "checked");
+        } else {
+          cell.textContent = shuffled[index++];
+
+          cell.addEventListener("click", () => {
+            cell.classList.toggle("checked");
+          });
+        }
 
         cardElement.appendChild(cell);
-      });
+      }
     }
 
     function generateRandomSeed() {
@@ -172,7 +191,7 @@
 
     function randomizeWithNewSeed() {
       const seed = generateRandomSeed();
-      seedInput.value = seed; // ✅ put seed into textbox
+      seedInput.value = seed;
       generateCard(seed);
     }
 

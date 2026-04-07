@@ -136,19 +136,22 @@
 
     <div id="bingo-card"></div>
 
-    <button onclick="randomizeWithNewSeed()">Randomize Board</button>
+    <button onclick="randomCode()">Randomize Board</button>
 
     <div>
-      <input id="seedInput">
-      <button onclick="useCustomSeed()">Input Code</button>
+      <input id="codeInput">
+      <button onclick="useCode()">Input Code</button>
     </div>
   </div>
 
   <script>
-    const cardElement = document.getElementById("bingo-card");
-    const seedInput = document.getElementById("seedInput");
+    const cardElem = document.getElementById("bingo-card");
+    const codeInput = document.getElementById("codeInput");
 
-    const phrases = [
+
+    
+    // challenges here
+    const challenges = [
       "Find a pre-2010 sign.",
       "Find a station without an entrance pylon.",
       "Find a railcar with an exterior wrap.",
@@ -181,10 +184,13 @@
       "Ride a train when it stops and adjusts on the platform.",
       "Ride a train over a crossover or through a pocket track."];
 
-    function seededRandom(seed) {
+
+    
+    // generate random code
+    function codeRandom(code) {
       let hash = 0;
-      for (let i = 0; i < seed.length; i++) {
-        hash = (hash << 5) - hash + seed.charCodeAt(i);
+      for (let i = 0; i < code.length; i++) {
+        hash = (hash << 5) - hash + code.charCodeAt(i);
         hash |= 0;
       }
 
@@ -195,6 +201,7 @@
       };
     }
 
+    // randomize board
     function shuffle(array, randomFunc) {
       let arr = array.slice();
       for (let i = arr.length - 1; i > 0; i--) {
@@ -204,13 +211,12 @@
       return arr;
     }
 
-    function generateCard(seed) {
-      const rand = seededRandom(seed);
+    // generate new card based on code
+    function generateCard(code) {
+      const rand = codeRandom(code);
 
-      // Only need 24 items now (center is fixed)
-      const shuffled = shuffle(phrases, rand).slice(0, 24);
-
-      cardElement.innerHTML = "";
+      const shuffled = shuffle(challenges, rand).slice(0, 24);
+      cardElem.innerHTML = "";
 
       let index = 0;
 
@@ -218,7 +224,6 @@
         const cell = document.createElement("div");
         cell.className = "cell";
 
-        // Center position (index 12)
         if (i === 12) {
           cell.textContent = "Find a 7K. (FREE)";
           cell.classList.add("free", "checked");
@@ -230,34 +235,34 @@
           });
         }
 
-        cardElement.appendChild(cell);
+        cardElem.appendChild(cell);
       }
     }
 
-    function generateRandomSeed() {
+    // generate random 10 digit code for board
+    function generateCode() {
       const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      let seed = "";
+      let code = "";
       for (let i = 0; i < 10; i++) {
-        seed += chars[Math.floor(Math.random() * chars.length)];
+        code += chars[Math.floor(Math.random() * chars.length)];
       }
-      return seed;
+      return code;
     }
 
-    function randomizeWithNewSeed() {
-      const seed = generateRandomSeed();
-      seedInput.value = seed;
-      generateCard(seed);
+    function randomCode() {
+      const code = generateCode();
+      codeInput.value = code;
+      generateCard(code);
     }
 
-    function useCustomSeed() {
-      const seed = seedInput.value.trim();
-      if (seed !== "") {
-        generateCard(seed);
+    function useCode() {
+      const code = codeInput.value.trim();
+      if (code !== "") {
+        generateCard(code);
       }
     }
 
-    // Initial load
-    randomizeWithNewSeed();
+    randomCode();
   </script>
 
 </body>

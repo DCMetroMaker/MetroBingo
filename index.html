@@ -8,13 +8,29 @@
       font-family: Arial, sans-serif;
       background: #0f172a;
       color: white;
-      text-align: center;
       margin: 0;
-      padding: 20px;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      text-align: center;
     }
 
     h1 {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
+    }
+
+    #header-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      max-width: 500px;
+      margin: 0 auto 5px;
+      font-weight: bold;
+      font-size: 18px;
+      letter-spacing: 2px;
     }
 
     #bingo-card {
@@ -68,31 +84,41 @@
       padding: 10px;
       border-radius: 6px;
       border: none;
-      width: 200px;
+      width: 220px;
       margin-top: 10px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-  <h1>MetroBingo</h1>
+  <div class="container">
+    <h1>MetroBingo</h1>
 
-  <div id="bingo-card"></div>
+    <div id="header-row">
+      <div>W</div>
+      <div>M</div>
+      <div>A</div>
+      <div>T</div>
+      <div>A</div>
+    </div>
 
-  <button onclick="randomizeWithNewSeed()">Randomize</button>
+    <div id="bingo-card"></div>
 
-  <div>
-    <input id="seedInput" placeholder="Enter custom seed">
-    <button onclick="useCustomSeed()">Submit</button>
+    <button onclick="randomizeWithNewSeed()">Randomize</button>
+
+    <div>
+      <input id="seedInput" placeholder="Enter or generate seed">
+      <button onclick="useCustomSeed()">Submit</button>
+    </div>
   </div>
 
   <script>
     const cardElement = document.getElementById("bingo-card");
+    const seedInput = document.getElementById("seedInput");
 
-    // Placeholder phrases (you can replace these later)
     const phrases = Array.from({ length: 50 }, (_, i) => "Placeholder " + (i + 1));
 
-    // Seeded random generator (deterministic)
     function seededRandom(seed) {
       let hash = 0;
       for (let i = 0; i < seed.length; i++) {
@@ -107,7 +133,6 @@
       };
     }
 
-    // Shuffle using seeded RNG
     function shuffle(array, randomFunc) {
       let arr = array.slice();
       for (let i = arr.length - 1; i > 0; i--) {
@@ -147,18 +172,18 @@
 
     function randomizeWithNewSeed() {
       const seed = generateRandomSeed();
-      console.log("Seed:", seed);
+      seedInput.value = seed; // ✅ put seed into textbox
       generateCard(seed);
     }
 
     function useCustomSeed() {
-      const seed = document.getElementById("seedInput").value;
-      if (seed.trim() !== "") {
+      const seed = seedInput.value.trim();
+      if (seed !== "") {
         generateCard(seed);
       }
     }
 
-    // generate card seed
+    // Initial load
     randomizeWithNewSeed();
   </script>
 

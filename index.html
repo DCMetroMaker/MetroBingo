@@ -7,12 +7,11 @@
     body {
       font-family: Helvetica, sans-serif;
       background-image: 
-        linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
         url("background.JPG");
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      background: light-gray;
       color: white;
       display: flex;
       justify-content: center;
@@ -51,7 +50,8 @@
     }
 
     .cell {
-      background: white;
+      background: #3a2c26;
+      color: white;
       border-radius: 8px;
       padding: 2%;
       width: 95%;
@@ -60,7 +60,6 @@
       user-select: none;
       transition: 0.2s;
       display: flex;
-      color: black;
       align-items: center;
       justify-content: center;
       font-size: 14px;
@@ -69,12 +68,12 @@
     }
 
     .cell:hover {
-      background: gold;
+      background: white;
     }
 
     .checked {
-      background: #3a2c26 !important;
-      color: white;
+      background: gold !important;
+      color: black;
       font-weight: bold;
     }
     
@@ -83,8 +82,8 @@
     }
 
     .free {
-      background: #3a2c26;
-      color: #white;
+      background: gold;
+      color: black;
       font-weight: bold;
       cursor: default;
     }
@@ -94,14 +93,14 @@
       margin: 10px;
       border: none;
       border-radius: 6px;
-      background: #3b82f6;
+      background: #3a2c26;
       color: white;
       cursor: pointer;
       font-size: 16px;
     }
 
     button:hover {
-      background: #2563eb;
+      background: red;
     }
 
     input {
@@ -120,11 +119,11 @@
     <h1>MetroBingo</h1>
 
     <div id="header-row">
-      <div>W</div>
       <div>M</div>
-      <div>A</div>
+      <div>E</div>
       <div>T</div>
-      <div>A</div>
+      <div>R</div>
+      <div>O</div>
     </div>
 
     <div id="bingo-card"></div>

@@ -6,7 +6,7 @@
   <title>MetroBingo</title>
   <style>
     body {
-      font-family: Helvetica, sans-serif;
+      font-family: Arial, sans-serif;
       background-image:
         linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
         url("background2.JPG");
@@ -30,10 +30,12 @@
       margin-bottom: 15px;
     }
 
+    /* testing only
     div {
       border-style: solid;
       border-color: red;
     }
+    */
 
     #header-row {
       display: grid;
@@ -79,10 +81,6 @@
       background: #6aa84f !important;
       color: white;
       font-weight: bold;
-    }
-    
-    .checked:hover {
-      background: #3a2c26;
     }
 
     .free {
@@ -133,11 +131,11 @@
 
     <div id="bingo-card"></div>
 
-    <button onclick="randomizeWithNewSeed()">Randomize</button>
+    <button onclick="randomizeWithNewSeed()">Randomize Board</button>
 
     <div>
-      <input id="seedInput" placeholder="Enter or generate seed">
-      <button onclick="useCustomSeed()">Submit</button>
+      <input id="seedInput">
+      <button onclick="useCustomSeed()">Input Code</button>
     </div>
   </div>
 
